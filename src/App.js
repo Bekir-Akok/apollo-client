@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useGetFilms } from "hooks";
+import "./app.css";
 
 function App() {
+  const { loading, error, data } = useGetFilms();
+
+  if (!!loading) return <p>Loading...</p>;
+  if (!loading && !!error) return <p>Error : {error.message}</p>;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      {data.map((film) => (
+        <div key={film.title} className="film-container">
+          <h1>{film.title}</h1>
+          <h2>{film.releaseDate}</h2>
+          <h3>{film.director}</h3>
+          <div className="species-wrapper">
+            {film.speciesConnection.species.map((specy) => (
+              <div key={specy.name} className="species">
+                <h4>{specy.name}</h4>
+                <h6>{specy?.homeworld?.name || "--"}</h6>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
