@@ -3,7 +3,7 @@
 import { useMutation } from "@apollo/client";
 import { useGetFilms } from "hooks";
 import { FilmsMutations } from "graphql/mutations";
-import "./app.css";
+import "./App.css";
 
 function App() {
   const { loading, error, data, refetch } = useGetFilms();
