@@ -6,26 +6,35 @@ import { FilmsMutations } from "graphql/mutations";
 import "./app.css";
 
 function App() {
-  const { loading, error, data } = useGetFilms();
+  const { loading, error, data, refetch } = useGetFilms();
 
   if (!!loading) return <p>Loading...</p>;
   if (!loading && !!error) return <p>Error : {error.message}</p>;
 
   const [createFilm, { loading: createLoading, error: createError }] =
     useMutation(FilmsMutations.CREATE_FILM, {
-      onCompleted: (data) => console.log("Data from mutation", data),
+      onCompleted: (data) => {
+        console.log("Data from mutation", data);
+        refetch();
+      },
       onError: (error) => console.error("Error creating a film", error),
     });
 
   const [updateFilm, { loading: updateLoading, error: updateError }] =
     useMutation(FilmsMutations.UPDATE_FILM, {
-      onCompleted: (data) => console.log("Data from mutation", data),
+      onCompleted: (data) => {
+        console.log("Data from mutation", data);
+        refetch();
+      },
       onError: (error) => console.error("Error update a film", error),
     });
 
   const [deleteFilm, { loading: deleteLoading, error: deleteError }] =
     useMutation(FilmsMutations.DELETE_FILM, {
-      onCompleted: (data) => console.log("Data from mutation", data),
+      onCompleted: (data) => {
+        console.log("Data from mutation", data);
+        refetch();
+      },
       onError: (error) => console.error("Error delete a film", error),
     });
 
