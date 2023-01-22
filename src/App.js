@@ -1,5 +1,5 @@
 import { useGetFilms } from "hooks";
-import "./app.css";
+import "./App.css";
 
 function App() {
   const { loading, error, data } = useGetFilms();
